@@ -1,0 +1,70 @@
+﻿@model BancoWeb.Models.empleado
+
+<!DOCTYPE html>
+<html>
+<head>
+    @{
+        ViewBag.Title = "Borrar empleado";
+    }
+    <style>
+        body, input, table {
+            margin: auto;
+            background-color: #585757;
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        fieldset {
+            margin: 1em auto;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h2>Borrar empleado</h2>
+
+    <h3> ¿Está seguro que quiere dar de baja a este empleado?</h3>
+    <div>
+        <hr />
+        <table class="table">
+            <tr>
+                <th>
+                    Nombre de Usuario
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Nomina
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.usuario.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.info_persona.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.nomina1.Nomina1)
+                </td>
+            </tr>
+        </table>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Borrar Empleado" class="btn btn-default" /> |
+                @Html.ActionLink("Regresar a inicio", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

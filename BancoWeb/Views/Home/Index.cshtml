@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @{
+        ViewBag.Title = "INICIO";
+    }
+    <style>
+        body, input {
+            margin: auto;
+            background: linear-gradient(45deg, #bb1881, #f88b50);
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        fieldset {
+            margin: 1em auto;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h2>INICIO</h2>
+
+    @if (Request.IsAuthenticated)
+    {
+
+        <span>Welcome @Html.Encode(User.Identity.Name) </span>
+    }
+    else
+    {
+        @Html.ActionLink("Login", "Login", "Account")
+        <br />
+
+        @Html.ActionLink("Register", "Register", "Account")
+
+        <br />
+
+        @Html.ActionLink("Buscar", "Buscar", "Account")
+    }
+    </body>
+</html>

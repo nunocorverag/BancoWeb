@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5e159fac6a8241e890ce4f6e6d4b7de8" Name="Diagram1">
+        <EntityTypeShape EntityType="bancoModel.administrador" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.boleto" Width="1.5" PointX="12" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.cuenta" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.curp_estatus" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.empleado" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.gerente" Width="1.5" PointX="6" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.info_persona" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.nomina" Width="1.5" PointX="3.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.prestamo" Width="1.5" PointX="9.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.solicitud" Width="1.5" PointX="7.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bancoModel.usuario" Width="1.5" PointX="3.75" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="bancoModel.administrador_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.boleto_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.cuenta_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.cuenta_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.cuenta_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.prestamo_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.solicitud_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.curp_estatus_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.empleado_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.empleado_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.empleado_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.prestamo_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.gerente_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.gerente_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.gerente_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="bancoModel.prestamo_ibfk_3" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

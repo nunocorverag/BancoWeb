@@ -1,0 +1,48 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background: linear-gradient(45deg, #bb1881, #f88b50);
+            font-family: sans-serif;
+        }
+
+        header {
+            text-align: center;
+            color: #fff;
+        }
+
+        h1, h2 {
+            font-family: Georgia, serif;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+@{
+    ViewBag.Title = "Lockout";
+}
+
+<h2>Lockout</h2>
+
+
+<body>
+
+    @ViewBag.Message
+    <asp:ScriptManager ID="sp" runat="server"></asp:ScriptManager>
+    <asp:Timer ID="timerTest" runat="server" Interval="1000" OnTick="timerTest_tick"></asp:Timer>
+
+    <asp:UpdatePanel ID="up" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <asp:Literal ID="litMsg" runat="server"></asp:Literal>
+        </ContentTemplate>
+
+        <Trigger>
+            <asp:AsyncPostBackTrigger ControlID="timerTest" EventName="tick" />
+        </Trigger>
+    </asp:UpdatePanel>
+</body>
+</html>

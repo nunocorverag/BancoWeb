@@ -1,0 +1,266 @@
+﻿@model BancoWeb.ViewModel.VistaAdministradoresModel.Tablas
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <style>
+        body, input, table {
+            margin: auto;
+            background-color: #585757;
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        fieldset {
+            margin: 1em auto;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h1>ADMINISTRACION</h1>
+    <h2>¡Bienvenido! @Model.usuario.UserName</h2>
+
+    <table class="table">
+        <caption>
+            <h1>Lista de Cuentas</h1>
+        </caption>
+        <tr>
+            <th>
+                <h2>Numero de Cuenta</h2>
+            </th>
+            <th>
+                <h2>Saldo</h2>
+            </th>
+            <th>
+                <h2>CURP</h2>
+            </th>
+            <th>
+                <h2>Nombre</h2>
+            </th>
+            <th>
+                <h2>Apellidos</h2>
+            </th>
+            <th>
+                <h2>Fecha de Nacimiento</h2>
+            </th>
+            <th>
+                <h2>ID usuario</h2>
+            </th>
+            <th>
+                <h2>Nombre de usuario</h2>
+            </th>
+            <th>
+                <h2>Contraseña</h2>
+            </th>
+        </tr>
+
+        @{
+            int i = 0;
+            foreach (var item in Model.ListCuenta)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCuenta[i].Numero_Cuenta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCuenta[i].Saldo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCuenta[i].curp_estatus.CURP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCuenta[i].info_persona.Nombre)
+                    </td>
+                    <td>
+                        @{
+                            string Apellidos = item.info_persona.Ape_P + " " + item.info_persona.Ape_M;
+                        }
+                        @Html.Display(Apellidos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCuenta[i].info_persona.Fecha_Nacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCuenta[i].usuario.ID_Usuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCuenta[i].usuario.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCuenta[i].usuario.Password)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Borrar", "BorrarCuenta", new { id = item.Numero_Cuenta })
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+    </table>
+
+    <table class="table">
+        <caption>
+            <h1>Lista de Empleados</h1>
+        </caption>
+        <tr>
+            <th>
+                <h2>ID</h2>
+            </th>
+            <th>
+                <h2>Nomina</h2>
+            </th>
+            <th>
+                <h2>Nombre</h2>
+            </th>
+            <th>
+                <h2>Apellidos</h2>
+            </th>
+            <th>
+                <h2>Fecha de Nacimiento</h2>
+            </th>
+            <th>
+                <h2>ID usuario</h2>
+            </th>
+            <th>
+                <h2>Nombre de usuario</h2>
+            </th>
+            <th>
+                <h2>Contraseña</h2>
+            </th>
+        </tr>
+
+        @{
+            int j = 0;
+            foreach (var item in Model.ListEmpleado)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].ID_Empleado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].Nomina)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].info_persona.Nombre)
+                    </td>
+                    <td>
+                        @{
+                            string Apellidos = item.info_persona.Ape_P + " " + item.info_persona.Ape_M;
+                        }
+                        @Html.Label(Apellidos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].info_persona.Fecha_Nacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].usuario.ID_Usuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].usuario.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].usuario.Password)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Borrar", "BorrarEmpleado", new { id = item.ID_Empleado })
+                    </td>
+                </tr>
+                j++;
+            }
+        }
+    </table>
+
+    <p>
+        @Html.ActionLink("Crear nuevo Gerente", "CrearGerente")
+    </p>
+    <table class="table">
+        <caption>
+            <h1>Lista de Gerentes</h1>
+        </caption>
+        <tr>
+            <th>
+                <h2>ID</h2>
+            </th>
+            <th>
+                <h2>Nomina</h2>
+            </th>
+            <th>
+                <h2>Dias de Vacaciones</h2>
+            </th>
+            <th>
+                <h2>Nombre</h2>
+            </th>
+            <th>
+                <h2>Apellidos</h2>
+            </th>
+            <th>
+                <h2>Fecha de Nacimiento</h2>
+            </th>
+            <th>
+                <h2>ID usuario</h2>
+            </th>
+            <th>
+                <h2>Nombre de usuario</h2>
+            </th>
+            <th>
+                <h2>Contraseña</h2>
+            </th>
+        </tr>
+
+        @{
+            int k = 0;
+            foreach (var item in Model.ListGerente)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListGerente[k].ID_Gerente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListGerente[k].Nomina)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListGerente[k].Dias_Vacaciones)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListGerente[k].info_persona.Nombre)
+                    </td>
+                    <td>
+                        @{
+                            string Apellidos = item.info_persona.Ape_P + " " + item.info_persona.Ape_M;
+                        }
+                        @Html.Label(Apellidos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListGerente[k].info_persona.Fecha_Nacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListGerente[k].usuario.ID_Usuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListGerente[k].usuario.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListGerente[k].usuario.Password)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Borrar", "BorrarGerente", new { id = item.ID_Gerente })
+                    </td>
+                </tr>
+                j++;
+            }
+        }
+    </table>
+</body>
+</html>

@@ -1,0 +1,69 @@
+////Este txt declara todo lo que hay que hacer de manera comprensible, esta ordenada con la idea de hacer el front end y solo le faltan
+mamadas como "El Empleado tendrá, número de nómina, Nombre(s), Apellidos, Fecha de Nacimiento y Prestamo(s) aprobados."  
+El resto de condiciones estan descritas. ////
+
+Login X
+    Login Erroneo (3 intentos - espera 5 min)
+Register X
+
+Pagina principal
+    Usuario
+    Saldo: Default 10,000 (si es menor a 10,000 no se puede pedir Prestamo)
+    Campo de historial de Prestamo: El Usuario tendrá un campo donde podrá ver el historial de sus pagos de cada uno de sus préstamos. 
+                                    El historial de cada préstamo será presentado por, Folio de préstamo, Cantidad, Pago N° de N número de pagos (1 de 36) (1 de 24) etc, Fecha de solicitud de préstamo, Fecha de liquidación de préstamo.
+    Campo de Prestamo activo: El Usuario tendrá un campo donde tendrá el préstamo activo (solo 1 a la vez)
+                                El cálculo de un préstamo no puede ser mayor al 50% del máximo del total que se encuentra en la Cuenta
+    
+    //Matematicas: El cálculo de la tasa de interés es basado en el número de meses que se escoge, 
+                si es 6 meses es 12%, si es 12 meses es 18%, si es 24 meses es 27.9% y para el caso de 36 meses es 42%
+
+
+    Empleado
+    (Los asigna el Gerente)
+    Aceptacion de Prestamos(Lista?): El Empleado podrá aceptar los préstamos de 6 y 12 meses
+                El cálculo de un préstamo no puede ser mayor al 50% del máximo del total que se encuentra en la Cuenta.
+                El Empleado sólo podrá aprobar préstamos si es que no se tiene otro préstamo activo.
+                    La excepción en el cuál podría aprobar un segundo préstamo “activo” es si y sólo si se encuentra en el último mes del préstamo vigente.
+                El Empleado podrá calcular el préstamo posible a 6, 12, 24 y 36 meses.
+                    //(tipo perfil?) El Empleado podrá revisar el estatus del último préstamo conocido por el Usuario y hasta los 10 últimos préstamos del Usuario.
+    
+    //Matematicas: El cálculo de la tasa de interés es basado en el número de meses que se escoge, 
+                si es 6 meses es 12%, si es 12 meses es 18%, si es 24 meses es 27.9% y para el caso de 36 meses es 42%
+
+
+    Gerente
+    (Pueden existir varios Gerentes)
+    Calendario: El Gerente puede generar días de vacaciones en una proporción de 1 por cada mes trabajado.
+                Los días de vacaciones de un Gerente no pueden exceder los 10 al año.
+                El Gerente puede usar solo 4 días seguidos de vacaciones.
+
+    Reportes(tabla para mandar datos?): Los reportes generados por el Gerente son, N° de préstamos por día, por semana, por mes, 
+                                        por cliente en específico y por tipo de préstamo (tipo siendo la diferencia entre meses)
+
+                                        Los reportes tendrán como información, el N° de folio del préstamo, el nombre de a quién le pertenece, 
+                                        fecha de solicitud, fecha de aprobación y último pago recibido.
+
+                                        Los reportes serán visualizados en forma de tabla en el orden propuesto en el requerimiento anterior, 
+                                        los préstamos siempre deben de estar ordenados en orden cronológico.
+
+    Sistema de alta y baja (alta los requests de los Usuarios y baja con tabla con IDs): El Gerente podrá dar de alta o baja tanto Usuarios como Empleados.
+
+    Prestamos pro: El Gerente podrá pausar un préstamo.
+                    El Gerente una vez pausando un préstamo, solo tendrá el periodo de gracias de 2 meses, después de ese periodo, seguirá con el pago mes con mes de dicho préstamo.
+                    El Gerente tendrá acceso a préstamos especiales.
+                    El préstamo del Gerente tiene un interés de solo 10.2%
+
+
+
+//Los préstamos pueden ser pedidos por Usuario y Gerentes y seguir el sistema de Prestamos (RESTO DE REGLAS EN EL ARCHIVO DE REQUERIMIENTOS)
+//Categorias de Prestamos (REGLAS EN EL ARCHIVO DE REQUERIMIENTOS)
+//QUERIES KLIAOS Y COMPORTAMIENTO
+
+
+
+
+
+
+    
+
+

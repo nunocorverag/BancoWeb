@@ -1,0 +1,100 @@
+﻿@model BancoWeb.ViewModel.VistaEmpleadosModel.Tablas
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <style>
+        body {
+            background: linear-gradient(45deg, #bb1881, #f88b50);
+            font-family: sans-serif;
+            font-size 30px;
+            color: #fff;
+            text-align: center;
+        }
+
+        h1, h2 {
+            font-family: Georgia, serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h1>EMPLEADO</h1>
+    @{
+        string NombreCompleto =
+            Model.empleado.info_persona.Nombre + " "
+            + Model.empleado.info_persona.Ape_P + " "
+            + Model.empleado.info_persona.Ape_M;
+    }
+    <h2>¡Bienvenido! @Html.Label(NombreCompleto)</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                Monto
+            </th>
+            <th>
+                Fecha_Solicitud
+            </th>
+            <th>
+                Situación
+            </th>
+            <th>
+                Plazo
+            </th>
+            <th>
+                Curp
+            </th>
+            <th></th>
+        </tr>
+
+        @{
+            int i = 0;
+            foreach (var item in Model.ListSolicitud)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListSolicitud[i].Monto)
+                    </td>
+                    <td>
+                        @item.Fecha_Solicitud.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListSolicitud[i].Situacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListSolicitud[i].Plazo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListSolicitud[i].cuenta.curp_estatus.CURP)
+                    </td>
+                    <td>
+                        @if ((item.Plazo == 6 || item.Plazo == 12) && (item.Situacion == "Solicitado"))
+                        {
+                            using (Html.BeginForm("Aprobar", "VistaEmpleados", new { id = item.ID_Solicitud }))
+                            {
+                                <input type="submit" value="Aprobar" />
+                            }
+                            using (Html.BeginForm("Denegar", "VistaEmpleados", new { id = item.ID_Solicitud }))
+                            {
+                                <input type="submit" value="Denegar" />
+                            }
+                        }
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+    </table>
+</body>
+</html>

@@ -1,0 +1,938 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bancoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administrador">
+          <Key>
+            <PropertyRef Name="ID_Administrador" />
+          </Key>
+          <Property Name="ID_Administrador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="boleto">
+          <Key>
+            <PropertyRef Name="ID_Boleto" />
+          </Key>
+          <Property Name="ID_Boleto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Folio_Prestamo" Type="int" Nullable="false" />
+          <Property Name="Primera_Participacion" Type="date" Nullable="false" />
+          <Property Name="Premiado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cuenta">
+          <Key>
+            <PropertyRef Name="Numero_Cuenta" />
+          </Key>
+          <Property Name="Numero_Cuenta" Type="bigint" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_Persona" Type="int" Nullable="false" />
+          <Property Name="Saldo" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CURP" Type="varchar" MaxLength="18" Nullable="false" />
+        </EntityType>
+        <EntityType Name="curp_estatus">
+          <Key>
+            <PropertyRef Name="CURP" />
+          </Key>
+          <Property Name="CURP" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="Estatus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_Persona" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="ID_Empleado" />
+          </Key>
+          <Property Name="ID_Empleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_Persona" Type="int" Nullable="false" />
+          <Property Name="Nomina" Type="int" Nullable="false" />
+          <Property Name="Prestamos_Aprobados" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gerente">
+          <Key>
+            <PropertyRef Name="ID_Gerente" />
+          </Key>
+          <Property Name="ID_Gerente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_Persona" Type="int" Nullable="false" />
+          <Property Name="Nomina" Type="int" Nullable="false" />
+          <Property Name="Dias_Vacaciones" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="info_persona">
+          <Key>
+            <PropertyRef Name="ID_Persona" />
+          </Key>
+          <Property Name="ID_Persona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Ape_P" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Ape_M" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Fecha_Nacimiento" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="nomina">
+          <Key>
+            <PropertyRef Name="Nomina" />
+          </Key>
+          <Property Name="Nomina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prestamo">
+          <Key>
+            <PropertyRef Name="Folio" />
+          </Key>
+          <Property Name="Folio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero_Cuenta" Type="bigint" Nullable="false" />
+          <Property Name="ID_Empleado" Type="int" Nullable="false" />
+          <Property Name="ID_Solicitud" Type="int" Nullable="false" />
+          <Property Name="Fecha_Aprobacion" Type="date" Nullable="false" />
+          <Property Name="Categoria_Prestamo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Pago_Mensual" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Fecha_Ultimo_Pago" Type="date" Nullable="false" />
+          <Property Name="Porcentaje_Pagado" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Boletos" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="solicitud">
+          <Key>
+            <PropertyRef Name="ID_Solicitud" />
+          </Key>
+          <Property Name="ID_Solicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero_Cuenta" Type="bigint" Nullable="false" />
+          <Property Name="Monto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Fecha_Solicitud" Type="date" Nullable="false" />
+          <Property Name="Situacion" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Plazo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="administrador_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="administrador" Type="Self.administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="administrador">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="boleto_ibfk_1">
+          <End Role="prestamo" Type="Self.prestamo" Multiplicity="1" />
+          <End Role="boleto" Type="Self.boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prestamo">
+              <PropertyRef Name="Folio" />
+            </Principal>
+            <Dependent Role="boleto">
+              <PropertyRef Name="Folio_Prestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cuenta_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="cuenta">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cuenta_ibfk_2">
+          <End Role="info_persona" Type="Self.info_persona" Multiplicity="1" />
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info_persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="cuenta">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cuenta_ibfk_3">
+          <End Role="curp_estatus" Type="Self.curp_estatus" Multiplicity="1" />
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curp_estatus">
+              <PropertyRef Name="CURP" />
+            </Principal>
+            <Dependent Role="cuenta">
+              <PropertyRef Name="CURP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="curp_estatus_ibfk_1">
+          <End Role="info_persona" Type="Self.info_persona" Multiplicity="1" />
+          <End Role="curp_estatus" Type="Self.curp_estatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info_persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="curp_estatus">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empleado_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empleado_ibfk_2">
+          <End Role="info_persona" Type="Self.info_persona" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info_persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empleado_ibfk_3">
+          <End Role="nomina" Type="Self.nomina" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nomina">
+              <PropertyRef Name="Nomina" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="Nomina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="gerente_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="gerente" Type="Self.gerente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="gerente">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="gerente_ibfk_2">
+          <End Role="info_persona" Type="Self.info_persona" Multiplicity="1" />
+          <End Role="gerente" Type="Self.gerente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info_persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="gerente">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="gerente_ibfk_3">
+          <End Role="nomina" Type="Self.nomina" Multiplicity="1" />
+          <End Role="gerente" Type="Self.gerente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nomina">
+              <PropertyRef Name="Nomina" />
+            </Principal>
+            <Dependent Role="gerente">
+              <PropertyRef Name="Nomina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamo_ibfk_1">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="1" />
+          <End Role="prestamo" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="Numero_Cuenta" />
+            </Principal>
+            <Dependent Role="prestamo">
+              <PropertyRef Name="Numero_Cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamo_ibfk_2">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="prestamo" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="ID_Empleado" />
+            </Principal>
+            <Dependent Role="prestamo">
+              <PropertyRef Name="ID_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamo_ibfk_3">
+          <End Role="solicitud" Type="Self.solicitud" Multiplicity="1" />
+          <End Role="prestamo" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitud">
+              <PropertyRef Name="ID_Solicitud" />
+            </Principal>
+            <Dependent Role="prestamo">
+              <PropertyRef Name="ID_Solicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="solicitud_ibfk_1">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="1" />
+          <End Role="solicitud" Type="Self.solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="Numero_Cuenta" />
+            </Principal>
+            <Dependent Role="solicitud">
+              <PropertyRef Name="Numero_Cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bancoModelStoreContainer">
+          <EntitySet Name="administrador" EntityType="Self.administrador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="boleto" EntityType="Self.boleto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cuenta" EntityType="Self.cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="curp_estatus" EntityType="Self.curp_estatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gerente" EntityType="Self.gerente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="info_persona" EntityType="Self.info_persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nomina" EntityType="Self.nomina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prestamo" EntityType="Self.prestamo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="solicitud" EntityType="Self.solicitud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="administrador_ibfk_1" Association="Self.administrador_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="administrador" EntitySet="administrador" />
+          </AssociationSet>
+          <AssociationSet Name="boleto_ibfk_1" Association="Self.boleto_ibfk_1">
+            <End Role="prestamo" EntitySet="prestamo" />
+            <End Role="boleto" EntitySet="boleto" />
+          </AssociationSet>
+          <AssociationSet Name="cuenta_ibfk_1" Association="Self.cuenta_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="cuenta" EntitySet="cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="cuenta_ibfk_2" Association="Self.cuenta_ibfk_2">
+            <End Role="info_persona" EntitySet="info_persona" />
+            <End Role="cuenta" EntitySet="cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="cuenta_ibfk_3" Association="Self.cuenta_ibfk_3">
+            <End Role="curp_estatus" EntitySet="curp_estatus" />
+            <End Role="cuenta" EntitySet="cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="curp_estatus_ibfk_1" Association="Self.curp_estatus_ibfk_1">
+            <End Role="info_persona" EntitySet="info_persona" />
+            <End Role="curp_estatus" EntitySet="curp_estatus" />
+          </AssociationSet>
+          <AssociationSet Name="empleado_ibfk_1" Association="Self.empleado_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="empleado_ibfk_2" Association="Self.empleado_ibfk_2">
+            <End Role="info_persona" EntitySet="info_persona" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="empleado_ibfk_3" Association="Self.empleado_ibfk_3">
+            <End Role="nomina" EntitySet="nomina" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="gerente_ibfk_1" Association="Self.gerente_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="gerente" EntitySet="gerente" />
+          </AssociationSet>
+          <AssociationSet Name="gerente_ibfk_2" Association="Self.gerente_ibfk_2">
+            <End Role="info_persona" EntitySet="info_persona" />
+            <End Role="gerente" EntitySet="gerente" />
+          </AssociationSet>
+          <AssociationSet Name="gerente_ibfk_3" Association="Self.gerente_ibfk_3">
+            <End Role="nomina" EntitySet="nomina" />
+            <End Role="gerente" EntitySet="gerente" />
+          </AssociationSet>
+          <AssociationSet Name="prestamo_ibfk_1" Association="Self.prestamo_ibfk_1">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="prestamo" EntitySet="prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="prestamo_ibfk_2" Association="Self.prestamo_ibfk_2">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="prestamo" EntitySet="prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="prestamo_ibfk_3" Association="Self.prestamo_ibfk_3">
+            <End Role="solicitud" EntitySet="solicitud" />
+            <End Role="prestamo" EntitySet="prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="solicitud_ibfk_1" Association="Self.solicitud_ibfk_1">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="solicitud" EntitySet="solicitud" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bancoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="administrador">
+          <Key>
+            <PropertyRef Name="ID_Administrador" />
+          </Key>
+          <Property Name="ID_Administrador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.administrador_ibfk_1" FromRole="administrador" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="boleto">
+          <Key>
+            <PropertyRef Name="ID_Boleto" />
+          </Key>
+          <Property Name="ID_Boleto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Folio_Prestamo" Type="Int32" Nullable="false" />
+          <Property Name="Primera_Participacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Premiado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="prestamo" Relationship="Self.boleto_ibfk_1" FromRole="boleto" ToRole="prestamo" />
+        </EntityType>
+        <EntityType Name="cuenta">
+          <Key>
+            <PropertyRef Name="Numero_Cuenta" />
+          </Key>
+          <Property Name="Numero_Cuenta" Type="Int64" Nullable="false" />
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_Persona" Type="Int32" Nullable="false" />
+          <Property Name="Saldo" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.cuenta_ibfk_1" FromRole="cuenta" ToRole="usuario" />
+          <NavigationProperty Name="info_persona" Relationship="Self.cuenta_ibfk_2" FromRole="cuenta" ToRole="info_persona" />
+          <NavigationProperty Name="curp_estatus" Relationship="Self.cuenta_ibfk_3" FromRole="cuenta" ToRole="curp_estatus" />
+          <NavigationProperty Name="prestamo" Relationship="Self.prestamo_ibfk_1" FromRole="cuenta" ToRole="prestamo" />
+          <NavigationProperty Name="solicitud" Relationship="Self.solicitud_ibfk_1" FromRole="cuenta" ToRole="solicitud" />
+        </EntityType>
+        <EntityType Name="curp_estatus">
+          <Key>
+            <PropertyRef Name="CURP" />
+          </Key>
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Persona" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cuenta" Relationship="Self.cuenta_ibfk_3" FromRole="curp_estatus" ToRole="cuenta" />
+          <NavigationProperty Name="info_persona" Relationship="Self.curp_estatus_ibfk_1" FromRole="curp_estatus" ToRole="info_persona" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="ID_Empleado" />
+          </Key>
+          <Property Name="ID_Empleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_Persona" Type="Int32" Nullable="false" />
+          <Property Name="Nomina" Type="Int32" Nullable="false" />
+          <Property Name="Prestamos_Aprobados" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.empleado_ibfk_1" FromRole="empleado" ToRole="usuario" />
+          <NavigationProperty Name="info_persona" Relationship="Self.empleado_ibfk_2" FromRole="empleado" ToRole="info_persona" />
+          <NavigationProperty Name="nomina1" Relationship="Self.empleado_ibfk_3" FromRole="empleado" ToRole="nomina" />
+          <NavigationProperty Name="prestamo" Relationship="Self.prestamo_ibfk_2" FromRole="empleado" ToRole="prestamo" />
+        </EntityType>
+        <EntityType Name="gerente">
+          <Key>
+            <PropertyRef Name="ID_Gerente" />
+          </Key>
+          <Property Name="ID_Gerente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_Persona" Type="Int32" Nullable="false" />
+          <Property Name="Nomina" Type="Int32" Nullable="false" />
+          <Property Name="Dias_Vacaciones" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.gerente_ibfk_1" FromRole="gerente" ToRole="usuario" />
+          <NavigationProperty Name="info_persona" Relationship="Self.gerente_ibfk_2" FromRole="gerente" ToRole="info_persona" />
+          <NavigationProperty Name="nomina1" Relationship="Self.gerente_ibfk_3" FromRole="gerente" ToRole="nomina" />
+        </EntityType>
+        <EntityType Name="info_persona">
+          <Key>
+            <PropertyRef Name="ID_Persona" />
+          </Key>
+          <Property Name="ID_Persona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ape_P" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ape_M" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha_Nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="cuenta" Relationship="Self.cuenta_ibfk_2" FromRole="info_persona" ToRole="cuenta" />
+          <NavigationProperty Name="curp_estatus" Relationship="Self.curp_estatus_ibfk_1" FromRole="info_persona" ToRole="curp_estatus" />
+          <NavigationProperty Name="empleado" Relationship="Self.empleado_ibfk_2" FromRole="info_persona" ToRole="empleado" />
+          <NavigationProperty Name="gerente" Relationship="Self.gerente_ibfk_2" FromRole="info_persona" ToRole="gerente" />
+        </EntityType>
+        <EntityType Name="nomina">
+          <Key>
+            <PropertyRef Name="Nomina1" />
+          </Key>
+          <Property Name="Nomina1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="empleado" Relationship="Self.empleado_ibfk_3" FromRole="nomina" ToRole="empleado" />
+          <NavigationProperty Name="gerente" Relationship="Self.gerente_ibfk_3" FromRole="nomina" ToRole="gerente" />
+        </EntityType>
+        <EntityType Name="prestamo">
+          <Key>
+            <PropertyRef Name="Folio" />
+          </Key>
+          <Property Name="Folio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero_Cuenta" Type="Int64" Nullable="false" />
+          <Property Name="ID_Empleado" Type="Int32" Nullable="false" />
+          <Property Name="ID_Solicitud" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_Aprobacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Categoria_Prestamo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pago_Mensual" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Fecha_Ultimo_Pago" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Porcentaje_Pagado" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Boletos" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="boleto" Relationship="Self.boleto_ibfk_1" FromRole="prestamo" ToRole="boleto" />
+          <NavigationProperty Name="cuenta" Relationship="Self.prestamo_ibfk_1" FromRole="prestamo" ToRole="cuenta" />
+          <NavigationProperty Name="empleado" Relationship="Self.prestamo_ibfk_2" FromRole="prestamo" ToRole="empleado" />
+          <NavigationProperty Name="solicitud" Relationship="Self.prestamo_ibfk_3" FromRole="prestamo" ToRole="solicitud" />
+        </EntityType>
+        <EntityType Name="solicitud">
+          <Key>
+            <PropertyRef Name="ID_Solicitud" />
+          </Key>
+          <Property Name="ID_Solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero_Cuenta" Type="Int64" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Fecha_Solicitud" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Situacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Plazo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cuenta" Relationship="Self.solicitud_ibfk_1" FromRole="solicitud" ToRole="cuenta" />
+          <NavigationProperty Name="prestamo" Relationship="Self.prestamo_ibfk_3" FromRole="solicitud" ToRole="prestamo" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="administrador" Relationship="Self.administrador_ibfk_1" FromRole="usuario" ToRole="administrador" />
+          <NavigationProperty Name="cuenta" Relationship="Self.cuenta_ibfk_1" FromRole="usuario" ToRole="cuenta" />
+          <NavigationProperty Name="empleado" Relationship="Self.empleado_ibfk_1" FromRole="usuario" ToRole="empleado" />
+          <NavigationProperty Name="gerente" Relationship="Self.gerente_ibfk_1" FromRole="usuario" ToRole="gerente" />
+        </EntityType>
+        <Association Name="administrador_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="administrador" Type="Self.administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="administrador">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="boleto_ibfk_1">
+          <End Role="prestamo" Type="Self.prestamo" Multiplicity="1" />
+          <End Role="boleto" Type="Self.boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prestamo">
+              <PropertyRef Name="Folio" />
+            </Principal>
+            <Dependent Role="boleto">
+              <PropertyRef Name="Folio_Prestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cuenta_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="cuenta">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cuenta_ibfk_2">
+          <End Role="info_persona" Type="Self.info_persona" Multiplicity="1" />
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info_persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="cuenta">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cuenta_ibfk_3">
+          <End Role="curp_estatus" Type="Self.curp_estatus" Multiplicity="1" />
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curp_estatus">
+              <PropertyRef Name="CURP" />
+            </Principal>
+            <Dependent Role="cuenta">
+              <PropertyRef Name="CURP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamo_ibfk_1">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="1" />
+          <End Role="prestamo" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="Numero_Cuenta" />
+            </Principal>
+            <Dependent Role="prestamo">
+              <PropertyRef Name="Numero_Cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="solicitud_ibfk_1">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="1" />
+          <End Role="solicitud" Type="Self.solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="Numero_Cuenta" />
+            </Principal>
+            <Dependent Role="solicitud">
+              <PropertyRef Name="Numero_Cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="curp_estatus_ibfk_1">
+          <End Role="info_persona" Type="Self.info_persona" Multiplicity="1" />
+          <End Role="curp_estatus" Type="Self.curp_estatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info_persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="curp_estatus">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empleado_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empleado_ibfk_2">
+          <End Role="info_persona" Type="Self.info_persona" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info_persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empleado_ibfk_3">
+          <End Role="nomina" Type="Self.nomina" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nomina">
+              <PropertyRef Name="Nomina1" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="Nomina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamo_ibfk_2">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="prestamo" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="ID_Empleado" />
+            </Principal>
+            <Dependent Role="prestamo">
+              <PropertyRef Name="ID_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="gerente_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="gerente" Type="Self.gerente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="gerente">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="gerente_ibfk_2">
+          <End Role="info_persona" Type="Self.info_persona" Multiplicity="1" />
+          <End Role="gerente" Type="Self.gerente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info_persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="gerente">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="gerente_ibfk_3">
+          <End Role="nomina" Type="Self.nomina" Multiplicity="1" />
+          <End Role="gerente" Type="Self.gerente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nomina">
+              <PropertyRef Name="Nomina1" />
+            </Principal>
+            <Dependent Role="gerente">
+              <PropertyRef Name="Nomina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamo_ibfk_3">
+          <End Role="solicitud" Type="Self.solicitud" Multiplicity="1" />
+          <End Role="prestamo" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitud">
+              <PropertyRef Name="ID_Solicitud" />
+            </Principal>
+            <Dependent Role="prestamo">
+              <PropertyRef Name="ID_Solicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bancoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="administrador" EntityType="Self.administrador" />
+          <EntitySet Name="boleto" EntityType="Self.boleto" />
+          <EntitySet Name="cuenta" EntityType="Self.cuenta" />
+          <EntitySet Name="curp_estatus" EntityType="Self.curp_estatus" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" />
+          <EntitySet Name="gerente" EntityType="Self.gerente" />
+          <EntitySet Name="info_persona" EntityType="Self.info_persona" />
+          <EntitySet Name="nomina" EntityType="Self.nomina" />
+          <EntitySet Name="prestamo" EntityType="Self.prestamo" />
+          <EntitySet Name="solicitud" EntityType="Self.solicitud" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <AssociationSet Name="administrador_ibfk_1" Association="Self.administrador_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="administrador" EntitySet="administrador" />
+          </AssociationSet>
+          <AssociationSet Name="boleto_ibfk_1" Association="Self.boleto_ibfk_1">
+            <End Role="prestamo" EntitySet="prestamo" />
+            <End Role="boleto" EntitySet="boleto" />
+          </AssociationSet>
+          <AssociationSet Name="cuenta_ibfk_1" Association="Self.cuenta_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="cuenta" EntitySet="cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="cuenta_ibfk_2" Association="Self.cuenta_ibfk_2">
+            <End Role="info_persona" EntitySet="info_persona" />
+            <End Role="cuenta" EntitySet="cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="cuenta_ibfk_3" Association="Self.cuenta_ibfk_3">
+            <End Role="curp_estatus" EntitySet="curp_estatus" />
+            <End Role="cuenta" EntitySet="cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="prestamo_ibfk_1" Association="Self.prestamo_ibfk_1">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="prestamo" EntitySet="prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="solicitud_ibfk_1" Association="Self.solicitud_ibfk_1">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="solicitud" EntitySet="solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="curp_estatus_ibfk_1" Association="Self.curp_estatus_ibfk_1">
+            <End Role="info_persona" EntitySet="info_persona" />
+            <End Role="curp_estatus" EntitySet="curp_estatus" />
+          </AssociationSet>
+          <AssociationSet Name="empleado_ibfk_1" Association="Self.empleado_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="empleado_ibfk_2" Association="Self.empleado_ibfk_2">
+            <End Role="info_persona" EntitySet="info_persona" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="empleado_ibfk_3" Association="Self.empleado_ibfk_3">
+            <End Role="nomina" EntitySet="nomina" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="prestamo_ibfk_2" Association="Self.prestamo_ibfk_2">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="prestamo" EntitySet="prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="gerente_ibfk_1" Association="Self.gerente_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="gerente" EntitySet="gerente" />
+          </AssociationSet>
+          <AssociationSet Name="gerente_ibfk_2" Association="Self.gerente_ibfk_2">
+            <End Role="info_persona" EntitySet="info_persona" />
+            <End Role="gerente" EntitySet="gerente" />
+          </AssociationSet>
+          <AssociationSet Name="gerente_ibfk_3" Association="Self.gerente_ibfk_3">
+            <End Role="nomina" EntitySet="nomina" />
+            <End Role="gerente" EntitySet="gerente" />
+          </AssociationSet>
+          <AssociationSet Name="prestamo_ibfk_3" Association="Self.prestamo_ibfk_3">
+            <End Role="solicitud" EntitySet="solicitud" />
+            <End Role="prestamo" EntitySet="prestamo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bancoModelStoreContainer" CdmEntityContainer="bancoEntities">
+          <EntitySetMapping Name="administrador">
+            <EntityTypeMapping TypeName="bancoModel.administrador">
+              <MappingFragment StoreEntitySet="administrador">
+                <ScalarProperty Name="ID_Administrador" ColumnName="ID_Administrador" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="boleto">
+            <EntityTypeMapping TypeName="bancoModel.boleto">
+              <MappingFragment StoreEntitySet="boleto">
+                <ScalarProperty Name="ID_Boleto" ColumnName="ID_Boleto" />
+                <ScalarProperty Name="Folio_Prestamo" ColumnName="Folio_Prestamo" />
+                <ScalarProperty Name="Primera_Participacion" ColumnName="Primera_Participacion" />
+                <ScalarProperty Name="Premiado" ColumnName="Premiado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cuenta">
+            <EntityTypeMapping TypeName="bancoModel.cuenta">
+              <MappingFragment StoreEntitySet="cuenta">
+                <ScalarProperty Name="Numero_Cuenta" ColumnName="Numero_Cuenta" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Persona" ColumnName="ID_Persona" />
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="curp_estatus">
+            <EntityTypeMapping TypeName="bancoModel.curp_estatus">
+              <MappingFragment StoreEntitySet="curp_estatus">
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="ID_Persona" ColumnName="ID_Persona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleado">
+            <EntityTypeMapping TypeName="bancoModel.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Persona" ColumnName="ID_Persona" />
+                <ScalarProperty Name="Nomina" ColumnName="Nomina" />
+                <ScalarProperty Name="Prestamos_Aprobados" ColumnName="Prestamos_Aprobados" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gerente">
+            <EntityTypeMapping TypeName="bancoModel.gerente">
+              <MappingFragment StoreEntitySet="gerente">
+                <ScalarProperty Name="ID_Gerente" ColumnName="ID_Gerente" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Persona" ColumnName="ID_Persona" />
+                <ScalarProperty Name="Nomina" ColumnName="Nomina" />
+                <ScalarProperty Name="Dias_Vacaciones" ColumnName="Dias_Vacaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="info_persona">
+            <EntityTypeMapping TypeName="bancoModel.info_persona">
+              <MappingFragment StoreEntitySet="info_persona">
+                <ScalarProperty Name="ID_Persona" ColumnName="ID_Persona" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Ape_P" ColumnName="Ape_P" />
+                <ScalarProperty Name="Ape_M" ColumnName="Ape_M" />
+                <ScalarProperty Name="Fecha_Nacimiento" ColumnName="Fecha_Nacimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nomina">
+            <EntityTypeMapping TypeName="bancoModel.nomina">
+              <MappingFragment StoreEntitySet="nomina">
+                <ScalarProperty Name="Nomina1" ColumnName="Nomina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prestamo">
+            <EntityTypeMapping TypeName="bancoModel.prestamo">
+              <MappingFragment StoreEntitySet="prestamo">
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="Numero_Cuenta" ColumnName="Numero_Cuenta" />
+                <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+                <ScalarProperty Name="ID_Solicitud" ColumnName="ID_Solicitud" />
+                <ScalarProperty Name="Fecha_Aprobacion" ColumnName="Fecha_Aprobacion" />
+                <ScalarProperty Name="Categoria_Prestamo" ColumnName="Categoria_Prestamo" />
+                <ScalarProperty Name="Pago_Mensual" ColumnName="Pago_Mensual" />
+                <ScalarProperty Name="Fecha_Ultimo_Pago" ColumnName="Fecha_Ultimo_Pago" />
+                <ScalarProperty Name="Porcentaje_Pagado" ColumnName="Porcentaje_Pagado" />
+                <ScalarProperty Name="Boletos" ColumnName="Boletos" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="solicitud">
+            <EntityTypeMapping TypeName="bancoModel.solicitud">
+              <MappingFragment StoreEntitySet="solicitud">
+                <ScalarProperty Name="ID_Solicitud" ColumnName="ID_Solicitud" />
+                <ScalarProperty Name="Numero_Cuenta" ColumnName="Numero_Cuenta" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Fecha_Solicitud" ColumnName="Fecha_Solicitud" />
+                <ScalarProperty Name="Situacion" ColumnName="Situacion" />
+                <ScalarProperty Name="Plazo" ColumnName="Plazo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="bancoModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

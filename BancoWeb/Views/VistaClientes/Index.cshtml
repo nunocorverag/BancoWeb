@@ -1,0 +1,195 @@
+﻿@model BancoWeb.ViewModel.VistaClientesModel.Tablas
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <style>
+        body, input, table {
+            margin: auto;
+            background-color: #585757;
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        fieldset {
+            margin: 1em auto;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CUENTA</h1>
+    @{
+        string NombreCompleto =
+            Model.cuenta.info_persona.Nombre + " "
+            + Model.cuenta.info_persona.Ape_P + " "
+            + Model.cuenta.info_persona.Ape_M;
+    }
+    <h2>¡Bienvenido! @Html.Label(NombreCompleto)</h2>
+
+    @* SALDO *@
+    <table>
+        <caption>
+            <h2>SALDO</h2>
+        </caption>
+        <tr>
+            <td>
+                @Model.cuenta.Saldo
+            </td>
+        </tr>
+    </table>
+
+
+    <p>
+        @Html.ActionLink("Crear nueva solicitud de prestamo", "CrearSolicitud")
+    </p>
+
+    @* TABLA DE SOLICITUDES DE PRESTAMO *@
+    <table class="table">
+        <caption>
+            <h1>Lista de solicitudes de prestamo</h1>
+        </caption>
+        <tr>
+            <th>
+                <h4>Monto</h4>
+            </th>
+            <th>
+                <h4>Fecha de solicitud</h4>
+            </th>
+            <th>
+                <h4>Situacion</h4>
+            </th>
+            <th>
+                <h4>Plazo</h4>
+            </th>
+        </tr>
+        @{
+            int i = 0;
+            foreach (var item in Model.ListSolicitud)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListSolicitud[i].Monto)
+                    </td>
+                    <td>
+                        @item.Fecha_Solicitud.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListSolicitud[i].Situacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListSolicitud[i].Plazo) meses
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Solicitud }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.ID_Solicitud }) |
+                            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Solicitud })
+                        </td>*@
+                </tr>
+                i++;
+            }
+        }
+    </table>
+    @ViewBag.Message
+
+
+    @* TABLA DE PRESTAMOS *@
+    <table class="table">
+        <caption>
+            <h1>Lista de prestamos</h1>
+        </caption>
+        <tr>
+            <th>
+                <h4>Folio</h4>
+            </th>
+            <th>
+                <h4>Estado</h4>
+            </th>
+            <th>
+                <h4>Fecha de Aprobacion</h4>
+            </th>
+            <th>
+                <h4>Categoria</h4>
+            </th>
+            <th>
+                <h4>Pago Mensual</h4>
+            </th>
+            <th>
+                <h4>Fecha del ultimo pago</h4>
+            </th>
+            <th>
+                <h4>Porcentaje pagado</h4>
+            </th>
+            <th>
+                <h4>Boletos</h4>
+            </th>
+        </tr>
+        @{
+            int j = 0;
+            foreach (var item in Model.ListPrestamo)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListPrestamo[j].Folio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListPrestamo[j].Estado)
+                    </td>
+                    <td>
+                        @item.Fecha_Aprobacion.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListPrestamo[j].Categoria_Prestamo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListPrestamo[j].Pago_Mensual)
+                    </td>
+                    <td>
+                        @{
+                            string StringFechaUltimoPago = item.Fecha_Ultimo_Pago.ToString("dd/MM/yyyy");
+                            if (StringFechaUltimoPago == "01/01/0001")
+                            {
+                                <p>
+                                    No hay registro
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @item.Fecha_Ultimo_Pago.ToString("dd/MM/yyyy")
+                                </p>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListPrestamo[j].Porcentaje_Pagado)%
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListPrestamo[j].Boletos)
+                    </td>
+                    @if (item.Estado == "Activo"){
+                        <td>
+                            @using (Html.BeginForm("Pagar", "VistaClientes", new { id = item.Folio }))
+                            {
+                                <input type="submit" value="Pagar" />
+                            }
+                        </td>
+                    }
+                </tr>
+                j++;
+            }
+        }
+    </table>
+</body>
+</html>

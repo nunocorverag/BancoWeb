@@ -1,0 +1,189 @@
+﻿@model BancoWeb.ViewModel.VistaGerentesModel.Tablas
+
+<!DOCTYPE html>
+<html>
+<head>
+    @{
+        ViewBag.Title = "Index";
+    }
+    <style>
+        body, input, table {
+            margin: auto;
+            background-color: #585757;
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        fieldset {
+            margin: 1em auto;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h1>GERENCIA</h1>
+
+    @{
+        string NombreCompleto =
+            Model.gerente.info_persona.Nombre + " "
+            + Model.gerente.info_persona.Ape_P + " "
+            + Model.gerente.info_persona.Ape_M;
+    }
+    <h2>¡Bienvenido! @Html.Label(NombreCompleto)</h2>
+
+
+    <table class="table">
+        <caption>
+            <h1>Lista de Solicitudes para crear Cuenta</h1>
+        </caption>
+        <tr>
+            <th>
+                <h2>CURP</h2>
+            </th>
+            <th>
+                <h2>ID Persona</h2>
+            </th>
+            <th>
+                <h2>Nombre</h2>
+            </th>
+            <th>
+                <h2>Apellidos</h2>
+            </th>
+            <th>
+                <h2>Fecha de Nacimiento</h2>
+            </th>
+            <th>
+                <h2>Estatus</h2>
+            </th>
+        </tr>
+
+        @{
+            int i = 0;
+            foreach (var item in Model.ListCurp_Estatus)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCurp_Estatus[i].CURP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCurp_Estatus[i].info_persona.ID_Persona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCurp_Estatus[i].info_persona.Nombre)
+                    </td>
+                    <td>
+                        @{
+                            string Apellidos = item.info_persona.Ape_P + " " + item.info_persona.Ape_M;
+                        }
+                        @Html.Label(Apellidos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCurp_Estatus[i].info_persona.Fecha_Nacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListCurp_Estatus[i].Estatus)
+                    </td>
+                    <td>
+                        @if (item.Estatus == "pendiente")
+                        {
+                            using (Html.BeginForm("Aceptar", "VistaGerentes", new { id = item.CURP }))
+                            {
+                                <input type="submit" value="Aceptar" />
+                            }
+                            using (Html.BeginForm("Rechazar", "VistaGerentes", new { id = item.CURP }))
+                            {
+                                <input type="submit" value="Rechazar" />
+                            }
+                        }
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+    </table>
+
+    <p>
+        @Html.ActionLink("Crear nuevo Empleado", "CrearEmpleado")
+    </p>
+    <table class="table">
+        <caption>
+            <h1>Lista de Empleados</h1>
+        </caption>
+        <tr>
+            <th>
+                <h2>ID</h2>
+            </th>
+            <th>
+                <h2>Nomina</h2>
+            </th>
+            <th>
+                <h2>Nombre</h2>
+            </th>
+            <th>
+                <h2>Apellidos</h2>
+            </th>
+            <th>
+                <h2>Fecha de Nacimiento</h2>
+            </th>
+            <th>
+                <h2>ID usuario</h2>
+            </th>
+            <th>
+                <h2>Nombre de usuario</h2>
+            </th>
+            <th>
+                <h2>Contraseña</h2>
+            </th>
+        </tr>
+
+        @{
+            int j = 0;
+            foreach (var item in Model.ListEmpleado)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].ID_Empleado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].Nomina)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].info_persona.Nombre)
+                    </td>
+                    <td>
+                        @{
+                            string Apellidos = item.info_persona.Ape_P + " " + item.info_persona.Ape_M;
+                        }
+                        @Html.Label(Apellidos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].info_persona.Fecha_Nacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].usuario.ID_Usuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].usuario.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.ListEmpleado[j].usuario.Password)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Borrar", "BorrarEmpleado", new { id = item.ID_Empleado })
+                    </td>
+                </tr>
+                j++;
+            }
+        }
+    </table>
+
+    <p>
+        @Html.ActionLink("Ver Solicitudes", "VerSolicitudes")
+    </p>
+</body>
+</html>

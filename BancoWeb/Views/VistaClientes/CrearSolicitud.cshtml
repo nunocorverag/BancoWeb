@@ -1,0 +1,75 @@
+﻿@model BancoWeb.Models.solicitud
+
+<!DOCTYPE html>
+<html>
+<head>
+    @{
+        ViewBag.Title = "CrearSolicitud";
+    }
+
+    <style>
+        body, input, table {
+            margin: auto;
+            background-color: #585757;
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        fieldset {
+            margin: 1em auto;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h2>Crear Solicitud</h2>
+
+    @using (Html.BeginForm("CrearSolicitud", "VistaClientes"))
+    {
+        <table>
+            <tr>
+                <td>
+                    <div style="color:red;">@Html.ValidationSummary()</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.Message
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2>Monto</h2>
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.Monto, new { @class = "form-control", type = "number" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(s => s.Plazo)
+                </td>
+                <td>
+                    @Html.RadioButtonFor(s => s.Plazo, "6") <span>6 meses</span>
+
+                    @Html.RadioButtonFor(s => s.Plazo, "12") <span>12 meses</span>
+
+                    @Html.RadioButtonFor(s => s.Plazo, "24") <span>24 meses</span>
+
+                    @Html.RadioButtonFor(s => s.Plazo, "36") <span>36 meses</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Solicitar Prestamo" class="btn btn-primary" />
+                </td>
+            </tr>
+        </table>
+    }
+</body>
+</html>

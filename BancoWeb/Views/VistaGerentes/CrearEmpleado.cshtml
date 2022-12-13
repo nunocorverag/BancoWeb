@@ -1,0 +1,104 @@
+﻿@model BancoWeb.ViewModel.CrearEmpleadoModel
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    @{
+        ViewBag.Title = "Crear Empleado";
+    }
+    <style>
+        body, input, table {
+            margin: auto;
+            background-color: #585757;
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        fieldset {
+            margin: 1em auto;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Crear nuevo empleado</h2>
+    <hr />
+
+
+    @using (Html.BeginForm("CrearEmpleado", "VistaGerentes"))
+    {
+        <table>
+            <tr>
+                <td>
+                    <div style="color:red;">@Html.ValidationSummary()</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.Message
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(p => p.Nombre)
+                </td>
+                <td>
+                    @Html.TextBoxFor(p => p.Nombre, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(p => p.Ape_P)
+                </td>
+                <td>
+                    @Html.TextBoxFor(p => p.Ape_P, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(p => p.Ape_M)
+                </td>
+                <td>
+                    @Html.TextBoxFor(p => p.Ape_M, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(p => p.Fecha_Nacimiento)
+                </td>
+                <td>
+                    @Html.TextBoxFor(p => p.Fecha_Nacimiento, new { @class = "form-control", type = "date" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(u => u.UserName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(u => u.UserName, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(u => u.Password)
+                </td>
+                <td>
+                    @Html.TextBoxFor(u => u.Password, new { @class = "form-control", type = "Password" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Register" class="btn btn-primary" />
+                </td>
+            </tr>
+        </table>
+    }
+</body>
+</html>
